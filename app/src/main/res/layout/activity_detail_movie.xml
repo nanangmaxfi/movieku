@@ -1,9 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.detail.DetailMovieActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image_poster"
+                android:layout_width="160dp"
+                android:layout_height="231dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@color/cardview_dark_background" />
+
+            <TextView
+                android:id="@+id/text_title"
+                style="@style/TextTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/image_poster"
+                app:layout_constraintTop_toTopOf="@+id/image_poster"
+                tools:text="Spider-Man: No Way Home" />
+
+            <TextView
+                android:id="@+id/text_tagline"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/roboto_light_italic"
+                app:layout_constraintEnd_toEndOf="@+id/text_title"
+                app:layout_constraintStart_toStartOf="@+id/text_title"
+                app:layout_constraintTop_toBottomOf="@+id/text_title"
+                tools:text="The Multiverse unleashed" />
+
+            <TextView
+                android:id="@+id/text_rating"
+                style="@style/TextRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="@+id/text_tagline"
+                app:layout_constraintTop_toBottomOf="@+id/text_tagline"
+                tools:text="8.4" />
+
+            <TextView
+                android:id="@+id/count_vote"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/roboto"
+                app:layout_constraintBottom_toBottomOf="@+id/text_rating"
+                app:layout_constraintEnd_toEndOf="@+id/text_title"
+                app:layout_constraintStart_toEndOf="@+id/text_rating"
+                app:layout_constraintTop_toTopOf="@+id/text_rating"
+                tools:text="(2.345)" />
+
+            <TextView
+                android:id="@+id/text_label_release_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/roboto"
+                android:text="Release Date:"
+                app:layout_constraintEnd_toEndOf="@+id/text_title"
+                app:layout_constraintStart_toStartOf="@+id/text_title"
+                app:layout_constraintTop_toBottomOf="@+id/text_rating" />
+
+            <TextView
+                android:id="@+id/text_release_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                app:layout_constraintEnd_toEndOf="@+id/text_title"
+                app:layout_constraintStart_toStartOf="@+id/text_label_release_date"
+                app:layout_constraintTop_toBottomOf="@+id/text_label_release_date"
+                tools:text="Dec 15, 2021" />
+
+            <TextView
+                android:id="@+id/text_label_genre"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/roboto"
+                android:text="Genre:"
+                app:layout_constraintEnd_toEndOf="@+id/text_title"
+                app:layout_constraintStart_toStartOf="@+id/text_title"
+                app:layout_constraintTop_toBottomOf="@+id/text_release_date" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/text_label_genre"
+                app:layout_constraintStart_toStartOf="@+id/text_label_genre"
+                app:layout_constraintTop_toBottomOf="@+id/text_label_genre" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
