@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieKu">
         <activity
+            android:name=".ui.favorite.FavoriteMovieActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.detail.DetailMovieActivity"
             android:exported="false" />
         <activity
