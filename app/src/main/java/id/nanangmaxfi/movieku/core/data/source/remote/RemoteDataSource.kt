@@ -23,8 +23,8 @@ class RemoteDataSource {
             }
     }
 
-    fun getListTrendingMovie() : LiveData<ApiResponse<ListMovieResponse?>>{
-        val result = MutableLiveData<ApiResponse<ListMovieResponse?>>()
+    fun getListTrendingMovie() : LiveData<ApiResponse<ListMovieResponse>>{
+        val result = MutableLiveData<ApiResponse<ListMovieResponse>>()
 
         ApiConfig.getApiService().getListTrendingMovie(BuildConfig.API_KEY).enqueue(object :
             Callback<ListMovieResponse>{
@@ -34,7 +34,7 @@ class RemoteDataSource {
             ) {
                 if (response.isSuccessful){
                     val dataResponse = response.body()
-                    result.value = ApiResponse.Success(dataResponse)
+                    result.value = ApiResponse.Success(dataResponse?: ListMovieResponse())
                 }
                 else{
                     result.value = ApiResponse.Error(response.message())
@@ -50,8 +50,8 @@ class RemoteDataSource {
         return result
     }
 
-    fun getDetailMovie(idMovie: String) : LiveData<ApiResponse<DetailMovieResponse?>>{
-        val result = MutableLiveData<ApiResponse<DetailMovieResponse?>>()
+    fun getDetailMovie(idMovie: String) : LiveData<ApiResponse<DetailMovieResponse>>{
+        val result = MutableLiveData<ApiResponse<DetailMovieResponse>>()
 
         ApiConfig.getApiService().getDetailMovie(BuildConfig.API_KEY, idMovie).enqueue(object :
             Callback<DetailMovieResponse>{
@@ -61,7 +61,7 @@ class RemoteDataSource {
             ) {
                 if (response.isSuccessful){
                     val dataResponse = response.body()
-                    result.value = ApiResponse.Success(dataResponse)
+                    result.value = ApiResponse.Success(dataResponse?:DetailMovieResponse())
                 }
                 else{
                     result.value = ApiResponse.Error(response.message())

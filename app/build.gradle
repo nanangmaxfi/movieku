@@ -17,7 +17,8 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "BASE_URL", '"https://api.themoviedb.org/3/"'
-        buildConfigField "String", "API_KEY", "ac82a22744001382e808368d5591bc9b"
+        buildConfigField "String", "API_KEY", '"ac82a22744001382e808368d5591bc9b"'
+        buildConfigField "String", "IMAGE_URL", '"https://image.tmdb.org/t/p/w500/"'
     }
 
     buildTypes {
@@ -63,4 +64,8 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
+
+    //groupie
+    implementation "com.github.lisawray.groupie:groupie:$groupie_version"
+    implementation "com.github.lisawray.groupie:groupie-viewbinding:$groupie_version"
 }

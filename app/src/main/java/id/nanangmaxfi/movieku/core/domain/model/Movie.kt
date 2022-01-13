@@ -9,8 +9,10 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Movie(
-    val movieId : String,
+    val movieId : Int,
+    val posterPath: String,
     val title: String,
     val releaseDate: String,
-    val rating: String
+    val rating: Double,
+    val isFavorite: Boolean
 ) : Parcelable

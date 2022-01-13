@@ -19,12 +19,15 @@ buildscript {
 
         room_version = "2.4.0"
         retrofit_version = "2.9.0"
+
+        groupie_version = "2.10.0"
     }
 
     repositories {
         google()
         mavenCentral()
         jcenter()
+        maven { url "https://jitpack.io" }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:7.0.3"
