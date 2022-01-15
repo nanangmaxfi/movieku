@@ -6,74 +6,53 @@ import androidx.lifecycle.MutableLiveData
 import id.nanangmaxfi.movieku.BuildConfig
 import id.nanangmaxfi.movieku.core.data.source.remote.network.ApiConfig
 import id.nanangmaxfi.movieku.core.data.source.remote.network.ApiResponse
+import id.nanangmaxfi.movieku.core.data.source.remote.network.ApiService
 import id.nanangmaxfi.movieku.core.data.source.remote.response.DetailMovieResponse
 import id.nanangmaxfi.movieku.core.data.source.remote.response.ListMovieResponse
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Exception
 
-class RemoteDataSource {
+class RemoteDataSource private constructor(private val apiService: ApiService) {
     companion object {
         @Volatile
         private var instance: RemoteDataSource? = null
 
-        fun getInstance(): RemoteDataSource =
+        fun getInstance(service: ApiService): RemoteDataSource =
             instance ?: synchronized(this) {
-                instance ?: RemoteDataSource()
+                instance ?: RemoteDataSource(service)
             }
     }
 
-    fun getListTrendingMovie() : LiveData<ApiResponse<ListMovieResponse>>{
-        val result = MutableLiveData<ApiResponse<ListMovieResponse>>()
-
-        ApiConfig.getApiService().getListTrendingMovie(BuildConfig.API_KEY).enqueue(object :
-            Callback<ListMovieResponse>{
-            override fun onResponse(
-                call: Call<ListMovieResponse>,
-                response: Response<ListMovieResponse>
-            ) {
-                if (response.isSuccessful){
-                    val dataResponse = response.body()
-                    result.value = ApiResponse.Success(dataResponse?: ListMovieResponse())
-                }
-                else{
-                    result.value = ApiResponse.Error(response.message())
-                    Log.e("RemoteDataSource", response.message())
-                }
+    fun getListTrendingMovie() : Flow<ApiResponse<ListMovieResponse>>{
+        return flow {
+            try {
+                val response = apiService.getListTrendingMovie(BuildConfig.API_KEY)
+                emit(ApiResponse.Success(response))
             }
-
-            override fun onFailure(call: Call<ListMovieResponse>, t: Throwable) {
-                result.value = ApiResponse.Error(t.toString())
-                Log.e("RemoteDataSource", t.toString())
+            catch (e: Exception){
+                emit(ApiResponse.Error(e.toString()))
+                Log.e("RemoteDataSource", e.toString())
             }
-        })
-        return result
+        }.flowOn(Dispatchers.IO)
     }
 
-    fun getDetailMovie(idMovie: String) : LiveData<ApiResponse<DetailMovieResponse>>{
-        val result = MutableLiveData<ApiResponse<DetailMovieResponse>>()
+    fun getDetailMovie(idMovie: String) : Flow<ApiResponse<DetailMovieResponse>>{
 
-        ApiConfig.getApiService().getDetailMovie(idMovie, BuildConfig.API_KEY).enqueue(object :
-            Callback<DetailMovieResponse>{
-            override fun onResponse(
-                call: Call<DetailMovieResponse>,
-                response: Response<DetailMovieResponse>
-            ) {
-                if (response.isSuccessful){
-                    val dataResponse = response.body()
-                    result.value = ApiResponse.Success(dataResponse?:DetailMovieResponse())
-                }
-                else{
-                    result.value = ApiResponse.Error(response.message())
-                    Log.e("RemoteDataSource", response.message())
-                }
+        return flow {
+            try {
+                val response = apiService.getDetailMovie(idMovie, BuildConfig.API_KEY)
+                emit(ApiResponse.Success(response))
             }
-
-            override fun onFailure(call: Call<DetailMovieResponse>, t: Throwable) {
-                result.value = ApiResponse.Error(t.toString())
-                Log.e("RemoteDataSource", t.toString())
+            catch (e: Exception){
+                emit(ApiResponse.Error(e.toString()))
+                Log.e("RemoteDataSource", e.toString())
             }
-        })
-        return result
+        }.flowOn(Dispatchers.IO)
     }
 }

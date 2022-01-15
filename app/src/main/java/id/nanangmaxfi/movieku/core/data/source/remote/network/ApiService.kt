@@ -9,8 +9,8 @@ import retrofit2.http.Query
 
 interface ApiService {
     @GET("trending/movie/week")
-    fun getListTrendingMovie(@Query("api_key") apiKey: String) : Call<ListMovieResponse>
+    suspend fun getListTrendingMovie(@Query("api_key") apiKey: String) : ListMovieResponse
 
     @GET("movie/{id_movie}")
-    fun getDetailMovie(@Path("id_movie") idMovie: String, @Query("api_key") apiKey: String) : Call<DetailMovieResponse>
+    suspend fun getDetailMovie(@Path("id_movie") idMovie: String, @Query("api_key") apiKey: String) : DetailMovieResponse
 }

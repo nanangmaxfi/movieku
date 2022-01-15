@@ -5,6 +5,7 @@ import id.nanangmaxfi.movieku.core.data.source.MovieRepository
 import id.nanangmaxfi.movieku.core.data.source.local.LocalDataSource
 import id.nanangmaxfi.movieku.core.data.source.local.room.MovieDatabase
 import id.nanangmaxfi.movieku.core.data.source.remote.RemoteDataSource
+import id.nanangmaxfi.movieku.core.data.source.remote.network.ApiConfig
 import id.nanangmaxfi.movieku.core.domain.repository.IMovieRepository
 import id.nanangmaxfi.movieku.core.domain.usecase.MovieInteractor
 import id.nanangmaxfi.movieku.core.domain.usecase.MovieUseCase
@@ -14,7 +15,7 @@ object Injection {
     private fun provideRepository(context: Context): IMovieRepository {
         val database = MovieDatabase.getInstance(context)
 
-        val remoteDataSource = RemoteDataSource.getInstance()
+        val remoteDataSource = RemoteDataSource.getInstance(ApiConfig.getApiService())
         val localDataSource = LocalDataSource.getInstance(database.movieDao())
         val appExecutors = AppExecutors()
 

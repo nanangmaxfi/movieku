@@ -1,9 +1,5 @@
 package id.nanangmaxfi.movieku.core.data.source
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import id.nanangmaxfi.movieku.core.data.source.local.LocalDataSource
 import id.nanangmaxfi.movieku.core.data.source.remote.RemoteDataSource
 import id.nanangmaxfi.movieku.core.data.source.remote.network.ApiResponse
@@ -13,6 +9,8 @@ import id.nanangmaxfi.movieku.core.domain.model.MovieDetail
 import id.nanangmaxfi.movieku.core.domain.repository.IMovieRepository
 import id.nanangmaxfi.movieku.core.utils.AppExecutors
 import id.nanangmaxfi.movieku.core.utils.DataMapper
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class MovieRepository private constructor(
     private val remoteDataSource: RemoteDataSource,
@@ -34,10 +32,10 @@ class MovieRepository private constructor(
             }
     }
 
-    override fun getAllMovie(): LiveData<Resource<List<Movie>>> =
+    override fun getAllMovie(): Flow<Resource<List<Movie>>> =
         object : NetworkBoundResource<List<Movie>, ListMovieResponse>(appExecutors){
-            override fun loadFromDB(): LiveData<List<Movie>> {
-                return Transformations.map(localDataSource.getAllMovie()){
+            override fun loadFromDB(): Flow<List<Movie>> {
+                return localDataSource.getAllMovie().map{
                     DataMapper.mapListEntityToListDomain(it)
                 }
             }
@@ -46,19 +44,19 @@ class MovieRepository private constructor(
                 data == null || data.isEmpty()
 
 
-            override fun createCall(): LiveData<ApiResponse<ListMovieResponse>> =
+            override suspend fun createCall(): Flow<ApiResponse<ListMovieResponse>> =
                 remoteDataSource.getListTrendingMovie()
 
 
-            override fun saveCallResult(data: ListMovieResponse) {
+            override suspend fun saveCallResult(data: ListMovieResponse) {
                 val movieList = DataMapper.mapListResponsesToListEntities(data)
                 return localDataSource.insertMovie(movieList)
             }
 
-        }.asLiveData()
+        }.asFlow()
 
-    override fun getFavoriteMovie(): LiveData<List<Movie>> {
-        return Transformations.map(localDataSource.getFavoriteMovie()){
+    override fun getFavoriteMovie(): Flow<List<Movie>> {
+        return localDataSource.getFavoriteMovie().map{
             DataMapper.mapListEntityToListDomain(it)
         }
     }
@@ -68,8 +66,8 @@ class MovieRepository private constructor(
         appExecutors.diskIO().execute{ localDataSource.setFavoriteMovie(movieEntity, state)}
     }
 
-    override fun getDetailMovie(movieId: Int): LiveData<Resource<MovieDetail>> {
-        return Transformations.map(remoteDataSource.getDetailMovie(movieId.toString())){ response ->
+    override fun getDetailMovie(movieId: Int): Flow<Resource<MovieDetail>> {
+        return remoteDataSource.getDetailMovie(movieId.toString()).map{ response ->
             when (response) {
                 is ApiResponse.Success ->
                     Resource.Success(DataMapper.mapDetailResponseToDetailDomain(response.data))
