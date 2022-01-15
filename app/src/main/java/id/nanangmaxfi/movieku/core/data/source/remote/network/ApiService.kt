@@ -12,5 +12,5 @@ interface ApiService {
     fun getListTrendingMovie(@Query("api_key") apiKey: String) : Call<ListMovieResponse>
 
     @GET("movie/{id_movie}")
-    fun getDetailMovie(@Query("api_key") apiKey: String, @Path("id_movie") idMovie: String) : Call<DetailMovieResponse>
+    fun getDetailMovie(@Path("id_movie") idMovie: String, @Query("api_key") apiKey: String) : Call<DetailMovieResponse>
 }

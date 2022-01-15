@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import id.nanangmaxfi.movieku.core.di.Injection
 import id.nanangmaxfi.movieku.core.domain.usecase.MovieUseCase
+import id.nanangmaxfi.movieku.ui.detail.DetailMovieViewModel
+import id.nanangmaxfi.movieku.ui.favorite.FavoriteMovieViewModel
 import id.nanangmaxfi.movieku.ui.main.MainViewModel
 
 class ViewModelFactory private constructor(private val moviewUseCase: MovieUseCase) : ViewModelProvider.NewInstanceFactory(){
@@ -25,6 +27,12 @@ class ViewModelFactory private constructor(private val moviewUseCase: MovieUseCa
         when {
             modelClass.isAssignableFrom(MainViewModel::class.java) -> {
                 MainViewModel(moviewUseCase) as T
+            }
+            modelClass.isAssignableFrom(DetailMovieViewModel::class.java) -> {
+                DetailMovieViewModel(moviewUseCase) as T
+            }
+            modelClass.isAssignableFrom(FavoriteMovieViewModel::class.java) -> {
+                FavoriteMovieViewModel(moviewUseCase) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

@@ -6,6 +6,7 @@ data class MovieDetail(
     val title: String = "",
     val releaseDate: String = "",
     val rating: Double = 0.0,
+    val countVote : Int = 0,
     val tagline: String = "",
     val genre: String = "",
     val status: String = "",

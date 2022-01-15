@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="blue_movie">#032541</color>
+    <color name="blue_movie_dark">#011424</color>
+    <color name="red">#EB5757</color>
 </resources>

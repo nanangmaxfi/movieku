@@ -53,7 +53,7 @@ class RemoteDataSource {
     fun getDetailMovie(idMovie: String) : LiveData<ApiResponse<DetailMovieResponse>>{
         val result = MutableLiveData<ApiResponse<DetailMovieResponse>>()
 
-        ApiConfig.getApiService().getDetailMovie(BuildConfig.API_KEY, idMovie).enqueue(object :
+        ApiConfig.getApiService().getDetailMovie(idMovie, BuildConfig.API_KEY).enqueue(object :
             Callback<DetailMovieResponse>{
             override fun onResponse(
                 call: Call<DetailMovieResponse>,

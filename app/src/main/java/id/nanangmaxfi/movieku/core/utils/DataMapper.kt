@@ -4,8 +4,7 @@ import androidx.lifecycle.MediatorLiveData
 import id.nanangmaxfi.movieku.core.data.source.Resource
 import id.nanangmaxfi.movieku.core.data.source.local.entity.MovieEntity
 import id.nanangmaxfi.movieku.core.data.source.remote.network.ApiResponse
-import id.nanangmaxfi.movieku.core.data.source.remote.response.DetailMovieResponse
-import id.nanangmaxfi.movieku.core.data.source.remote.response.ListMovieResponse
+import id.nanangmaxfi.movieku.core.data.source.remote.response.*
 import id.nanangmaxfi.movieku.core.domain.model.Movie
 import id.nanangmaxfi.movieku.core.domain.model.MovieDetail
 
@@ -53,14 +52,44 @@ object DataMapper {
         title = input.title?:"",
         releaseDate = input.releaseDate?:"",
         rating = input.voteAverage?:0.0,
+        countVote = input.voteCount?:0,
         tagline = input.tagline?:"",
-        genre = input.genres?.joinToString(separator = ", ")?:"",
+        genre = genreListToString(input.genres),
         status = input.status?:"",
         homepage = input.homepage?:"",
-        countries = input.productionCountries?.joinToString(separator = ", ")?:"",
-        production = input.productionCompanies?.joinToString(separator = ", ")?:"",
+        countries = countriesListToString(input.productionCountries),
+        production = productionListToString(input.productionCompanies),
         overview = input.overview?:"",
         isFavorite = false
     )
 
+    private fun genreListToString(genres: List<GenresItem?>?) : String{
+        if (genres != null) {
+            return genres.asSequence()
+                .filterNotNull()
+                .map(GenresItem::name)
+                .joinToString(separator = ", ")
+        }
+        return ""
+    }
+
+    private fun countriesListToString(countries: List<ProductionCountriesItem?>?) : String{
+        if (countries != null) {
+            return countries.asSequence()
+                .filterNotNull()
+                .map(ProductionCountriesItem::name)
+                .joinToString(separator = ", ")
+        }
+        return ""
+    }
+
+    private fun productionListToString(production: List<ProductionCompaniesItem?>?) : String{
+        if (production != null) {
+            return production.asSequence()
+                .filterNotNull()
+                .map(ProductionCompaniesItem::name)
+                .joinToString(separator = ", ")
+        }
+        return ""
+    }
 }

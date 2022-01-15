@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupieAdapter
 import id.nanangmaxfi.movieku.R
 import id.nanangmaxfi.movieku.core.data.source.Resource
 import id.nanangmaxfi.movieku.core.domain.model.Movie
 import id.nanangmaxfi.movieku.core.ui.ViewModelFactory
+import id.nanangmaxfi.movieku.core.utils.AppUtils
 import id.nanangmaxfi.movieku.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -20,6 +22,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        AppUtils.actionbar(this, "Trending Movie")
 
         val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
@@ -51,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         listMovie.forEach {
             adapter.add(MovieItem(it))
         }
-        binding.rvMovie.layoutManager = LinearLayoutManager(this)
+        binding.rvMovie.layoutManager = GridLayoutManager(this,2)
         binding.rvMovie.adapter = adapter
     }
 }
