@@ -3,7 +3,6 @@ package id.nanangmaxfi.movieku.ui.favorite
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.xwray.groupie.GroupieAdapter
 import id.nanangmaxfi.movieku.core.domain.model.Movie

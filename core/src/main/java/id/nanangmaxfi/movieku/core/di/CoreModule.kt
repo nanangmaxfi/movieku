@@ -1,7 +1,7 @@
 package id.nanangmaxfi.movieku.core.di
 
 import androidx.room.Room
-import id.nanangmaxfi.movieku.BuildConfig
+import id.nanangmaxfi.movieku.core.BuildConfig
 import id.nanangmaxfi.movieku.core.data.source.MovieRepository
 import id.nanangmaxfi.movieku.core.data.source.local.LocalDataSource
 import id.nanangmaxfi.movieku.core.data.source.local.room.MovieDatabase
@@ -49,5 +49,11 @@ val repositoryModule = module {
     single { LocalDataSource(get()) }
     single { RemoteDataSource(get()) }
     factory { AppExecutors() }
-    single<IMovieRepository> {MovieRepository(get(), get(), get())}
+    single<IMovieRepository> {
+        MovieRepository(
+            get(),
+            get(),
+            get()
+        )
+    }
 }

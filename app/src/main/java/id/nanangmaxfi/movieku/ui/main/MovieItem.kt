@@ -6,8 +6,8 @@ import com.bumptech.glide.Glide
 import com.xwray.groupie.viewbinding.BindableItem
 import id.nanangmaxfi.movieku.BuildConfig
 import id.nanangmaxfi.movieku.R
+import id.nanangmaxfi.movieku.core.databinding.ItemMovieBinding
 import id.nanangmaxfi.movieku.core.domain.model.Movie
-import id.nanangmaxfi.movieku.databinding.ItemMovieBinding
 import id.nanangmaxfi.movieku.ui.detail.DetailMovieActivity
 
 class MovieItem(private val movie: Movie) : BindableItem<ItemMovieBinding>() {

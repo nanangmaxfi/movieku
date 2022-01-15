@@ -14,12 +14,12 @@ import kotlinx.coroutines.flow.map
 
 class MovieRepository(
     private val remoteDataSource: RemoteDataSource,
-    private val localDataSource: LocalDataSource,
+    private val localDataSource: id.nanangmaxfi.movieku.core.data.source.local.LocalDataSource,
     private val appExecutors: AppExecutors
 ) : IMovieRepository{
 
-    override fun getAllMovie(): Flow<Resource<List<Movie>>> =
-        object : NetworkBoundResource<List<Movie>, ListMovieResponse>(appExecutors){
+    override fun getAllMovie(): Flow<id.nanangmaxfi.movieku.core.data.source.Resource<List<Movie>>> =
+        object : id.nanangmaxfi.movieku.core.data.source.NetworkBoundResource<List<Movie>, ListMovieResponse>(appExecutors){
             override fun loadFromDB(): Flow<List<Movie>> {
                 return localDataSource.getAllMovie().map{
                     DataMapper.mapListEntityToListDomain(it)
@@ -56,11 +56,18 @@ class MovieRepository(
         return remoteDataSource.getDetailMovie(movieId.toString()).map{ response ->
             when (response) {
                 is ApiResponse.Success ->
-                    Resource.Success(DataMapper.mapDetailResponseToDetailDomain(response.data))
+                    Resource.Success(
+                        DataMapper.mapDetailResponseToDetailDomain(
+                            response.data
+                        )
+                    )
                 is ApiResponse.Empty ->
                     Resource.Success(MovieDetail())
                 is ApiResponse.Error -> {
-                    Resource.Error(response.errorMessage, MovieDetail())
+                    Resource.Error(
+                        response.errorMessage,
+                        MovieDetail()
+                    )
                 }
             }
         }

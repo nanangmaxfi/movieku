@@ -1,7 +1,7 @@
 package id.nanangmaxfi.movieku.core.data.source.remote
 
 import android.util.Log
-import id.nanangmaxfi.movieku.BuildConfig
+import id.nanangmaxfi.movieku.core.BuildConfig
 import id.nanangmaxfi.movieku.core.data.source.remote.network.ApiResponse
 import id.nanangmaxfi.movieku.core.data.source.remote.network.ApiService
 import id.nanangmaxfi.movieku.core.data.source.remote.response.DetailMovieResponse

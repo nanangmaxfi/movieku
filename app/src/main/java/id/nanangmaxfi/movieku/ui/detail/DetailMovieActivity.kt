@@ -3,11 +3,9 @@ package id.nanangmaxfi.movieku.ui.detail
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import id.nanangmaxfi.movieku.BuildConfig
 import id.nanangmaxfi.movieku.R
-import id.nanangmaxfi.movieku.core.data.source.Resource
 import id.nanangmaxfi.movieku.core.domain.model.MovieDetail
 import id.nanangmaxfi.movieku.core.utils.AppUtils
 import id.nanangmaxfi.movieku.databinding.ActivityDetailMovieBinding
@@ -29,21 +27,21 @@ class DetailMovieActivity : AppCompatActivity() {
             viewModel.movieDetail(movieId).observe(this, { response ->
                 if (response != null){
                     when(response){
-                        is Resource.Loading -> {
+                        is id.nanangmaxfi.movieku.core.data.source.Resource.Loading -> {
                             binding.progressBar.visibility = View.VISIBLE
                             binding.scrollView.visibility = View.GONE
                         }
-                        is Resource.Success -> {
+                        is id.nanangmaxfi.movieku.core.data.source.Resource.Success -> {
                             binding.progressBar.visibility = View.GONE
                             binding.scrollView.visibility = View.VISIBLE
                             if (response.data != null) {
                                 val statusFavorite = intent.extras?.getBoolean("statusFavorite")
-                                showMovie(response.data, statusFavorite?:false)
+                                showMovie(response.data!!, statusFavorite?:false)
                             }
                             else
                                 showError("Empty Data")
                         }
-                        is Resource.Error -> {
+                        is id.nanangmaxfi.movieku.core.data.source.Resource.Error -> {
                             showError(response.message ?: "Something error")
                         }
                     }

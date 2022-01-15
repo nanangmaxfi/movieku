@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import com.xwray.groupie.GroupieAdapter
-import id.nanangmaxfi.movieku.core.data.source.Resource
 import id.nanangmaxfi.movieku.core.domain.model.Movie
 import id.nanangmaxfi.movieku.core.utils.AppUtils
 import id.nanangmaxfi.movieku.databinding.ActivityMainBinding
@@ -25,14 +24,14 @@ class MainActivity : AppCompatActivity() {
         viewModel.movieList.observe(this, { response ->
             if (response != null){
                 when(response){
-                    is Resource.Loading -> {
+                    is id.nanangmaxfi.movieku.core.data.source.Resource.Loading -> {
                         binding.progressBar.visibility = View.VISIBLE
                     }
-                    is Resource.Success -> {
+                    is id.nanangmaxfi.movieku.core.data.source.Resource.Success -> {
                         binding.progressBar.visibility = View.GONE
                         showListMovie(response.data)
                     }
-                    is Resource.Error -> {
+                    is id.nanangmaxfi.movieku.core.data.source.Resource.Error -> {
                         binding.progressBar.visibility = View.GONE
                         binding.viewError.root.visibility = View.VISIBLE
                         binding.viewError.tvError.text = response.message ?: "Something error"

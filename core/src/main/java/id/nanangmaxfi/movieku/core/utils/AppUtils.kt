@@ -1,14 +1,12 @@
 package id.nanangmaxfi.movieku.core.utils
 
-import android.content.Context
 import android.content.Intent
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import id.nanangmaxfi.movieku.R
-import id.nanangmaxfi.movieku.ui.favorite.FavoriteMovieActivity
+import id.nanangmaxfi.movieku.core.R
 
 object AppUtils {
     //actionbar default
@@ -29,7 +27,7 @@ object AppUtils {
         val favoriteView = view?.findViewById<ImageView>(R.id.img_favorite)
         favoriteView?.visibility = View.VISIBLE
         favoriteView?.setOnClickListener {
-            val intent = Intent(activity, FavoriteMovieActivity::class.java)
+            val intent = Intent(activity, Class.forName("id.nanangmaxfi.movieku.ui.favorite.FavoriteMovieActivity"))
             activity.startActivity(intent)
         }
     }
