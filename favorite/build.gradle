@@ -1,26 +1,21 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.dynamic-feature'
     id 'kotlin-android'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
 }
-
 apply from: '../shared_dependencies.gradle'
-
 android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "id.nanangmaxfi.movieku"
+        applicationId "id.nanangmaxfi.movieku.favorite"
         minSdk 21
         targetSdk 31
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField "String", "BASE_URL", '"https://api.themoviedb.org/3/"'
-        buildConfigField "String", "API_KEY", '"ac82a22744001382e808368d5591bc9b"'
-        buildConfigField "String", "IMAGE_URL", '"https://image.tmdb.org/t/p/w500/"'
     }
 
     buildTypes {
@@ -29,6 +24,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -40,10 +36,9 @@ android {
     viewBinding{
         enabled = true
     }
-    dynamicFeatures = [':favorite']
 }
 
 dependencies {
     implementation project(":core")
-
+    implementation project(":app")
 }

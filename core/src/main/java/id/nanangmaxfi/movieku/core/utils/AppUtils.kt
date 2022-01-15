@@ -1,6 +1,7 @@
 package id.nanangmaxfi.movieku.core.utils
 
 import android.content.Intent
+import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -27,7 +28,9 @@ object AppUtils {
         val favoriteView = view?.findViewById<ImageView>(R.id.img_favorite)
         favoriteView?.visibility = View.VISIBLE
         favoriteView?.setOnClickListener {
-            val intent = Intent(activity, Class.forName("id.nanangmaxfi.movieku.ui.favorite.FavoriteMovieActivity"))
+            val uri = Uri.parse("movieku://favorite")
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            //val intent = Intent(activity, Class.forName("id.nanangmaxfi.movieku.ui.favorite.FavoriteMovieActivity"))
             activity.startActivity(intent)
         }
     }

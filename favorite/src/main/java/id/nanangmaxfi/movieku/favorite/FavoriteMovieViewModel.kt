@@ -1,4 +1,4 @@
-package id.nanangmaxfi.movieku.ui.favorite
+package id.nanangmaxfi.movieku.favorite
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData

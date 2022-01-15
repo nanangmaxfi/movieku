@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="oops_something_went_wrong">Oops.. something went wrong</string>
+    <string name="app_name">Movie Ku</string>
+    <string name="title_favorite">Favorite</string>
+    <string name="release_date">Release Date:</string>
+    <string name="genre">Genre:</string>
+    <string name="status">Status:</string>
+    <string name="homepage">Homepage:</string>
+    <string name="country">Country:</string>
+    <string name="production">Production:</string>
+    <string name="overview">Overview:</string>
+    <string name="save_favorite">Save Favorite</string>
+</resources>
