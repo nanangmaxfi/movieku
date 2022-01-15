@@ -9,13 +9,13 @@ import id.nanangmaxfi.movieku.BuildConfig
 import id.nanangmaxfi.movieku.R
 import id.nanangmaxfi.movieku.core.data.source.Resource
 import id.nanangmaxfi.movieku.core.domain.model.MovieDetail
-import id.nanangmaxfi.movieku.core.ui.ViewModelFactory
 import id.nanangmaxfi.movieku.core.utils.AppUtils
 import id.nanangmaxfi.movieku.databinding.ActivityDetailMovieBinding
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class DetailMovieActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailMovieBinding
-    private lateinit var viewModel: DetailMovieViewModel
+    private val viewModel: DetailMovieViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,9 +23,6 @@ class DetailMovieActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         AppUtils.actionbarWithBack(this, "Detail Movie")
-
-        val factory = ViewModelFactory.getInstance(this)
-        viewModel = ViewModelProvider(this, factory)[DetailMovieViewModel::class.java]
 
         val movieId = intent.extras?.getInt("movieId")
         if(movieId != null){

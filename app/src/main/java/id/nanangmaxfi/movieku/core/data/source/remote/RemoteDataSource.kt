@@ -1,10 +1,7 @@
 package id.nanangmaxfi.movieku.core.data.source.remote
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import id.nanangmaxfi.movieku.BuildConfig
-import id.nanangmaxfi.movieku.core.data.source.remote.network.ApiConfig
 import id.nanangmaxfi.movieku.core.data.source.remote.network.ApiResponse
 import id.nanangmaxfi.movieku.core.data.source.remote.network.ApiService
 import id.nanangmaxfi.movieku.core.data.source.remote.response.DetailMovieResponse
@@ -13,21 +10,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.lang.Exception
 
-class RemoteDataSource private constructor(private val apiService: ApiService) {
-    companion object {
-        @Volatile
-        private var instance: RemoteDataSource? = null
-
-        fun getInstance(service: ApiService): RemoteDataSource =
-            instance ?: synchronized(this) {
-                instance ?: RemoteDataSource(service)
-            }
-    }
+class RemoteDataSource(private val apiService: ApiService) {
 
     fun getListTrendingMovie() : Flow<ApiResponse<ListMovieResponse>>{
         return flow {
