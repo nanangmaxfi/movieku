@@ -28,6 +28,7 @@ class FavoriteMovieActivity : AppCompatActivity() {
                 showListMovie(response)
             }
             else{
+                binding.rvMovie.visibility = View.GONE
                 binding.viewError.root.visibility = View.VISIBLE
                 binding.viewError.tvError.text = "Belum ada movie favorite"
             }
@@ -35,6 +36,9 @@ class FavoriteMovieActivity : AppCompatActivity() {
     }
 
     private fun showListMovie(listMovie : List<Movie>){
+        binding.viewError.root.visibility = View.GONE
+        binding.rvMovie.visibility = View.VISIBLE
+
         val adapter = GroupieAdapter()
         listMovie.forEach {
             adapter.add(MovieItem(it))
