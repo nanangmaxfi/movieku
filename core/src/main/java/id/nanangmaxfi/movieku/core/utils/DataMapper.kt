@@ -1,9 +1,6 @@
 package id.nanangmaxfi.movieku.core.utils
 
-import androidx.lifecycle.MediatorLiveData
-import id.nanangmaxfi.movieku.core.data.source.Resource
 import id.nanangmaxfi.movieku.core.data.source.local.entity.MovieEntity
-import id.nanangmaxfi.movieku.core.data.source.remote.network.ApiResponse
 import id.nanangmaxfi.movieku.core.data.source.remote.response.*
 import id.nanangmaxfi.movieku.core.domain.model.Movie
 import id.nanangmaxfi.movieku.core.domain.model.MovieDetail

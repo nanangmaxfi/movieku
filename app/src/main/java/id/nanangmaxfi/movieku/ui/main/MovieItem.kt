@@ -21,8 +21,8 @@ class MovieItem(private val movie: Movie) : BindableItem<ItemMovieBinding>() {
                 .into(imagePoster)
             root.setOnClickListener {
                 val intent = Intent(root.context, DetailMovieActivity::class.java)
-                intent.putExtra("movieId", movie.movieId)
-                intent.putExtra("statusFavorite", movie.isFavorite)
+                intent.putExtra(DetailMovieActivity.MOVIE_ID, movie.movieId)
+                intent.putExtra(DetailMovieActivity.STATUS_FAVORITE, movie.isFavorite)
                 root.context.startActivity(intent)
             }
         }

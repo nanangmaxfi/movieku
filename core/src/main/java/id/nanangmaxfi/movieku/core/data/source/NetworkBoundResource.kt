@@ -6,23 +6,23 @@ import kotlinx.coroutines.flow.*
 
 abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecutors: AppExecutors) {
 
-    private var result : Flow<id.nanangmaxfi.movieku.core.data.source.Resource<ResultType>> = flow {
-        emit(id.nanangmaxfi.movieku.core.data.source.Resource.Loading())
+    private var result : Flow<Resource<ResultType>> = flow {
+        emit(Resource.Loading())
         val dbSource = loadFromDB().first()
         if (shouldFetch(dbSource)) {
-            emit(id.nanangmaxfi.movieku.core.data.source.Resource.Loading())
+            emit(Resource.Loading())
             when (val apiResponse = createCall().first()) {
                 is ApiResponse.Success -> {
                     saveCallResult(apiResponse.data)
                     emitAll(loadFromDB().map {
-                        id.nanangmaxfi.movieku.core.data.source.Resource.Success(
+                        Resource.Success(
                             it
                         )
                     })
                 }
                 is ApiResponse.Empty -> {
                     emitAll(loadFromDB().map {
-                        id.nanangmaxfi.movieku.core.data.source.Resource.Success(
+                        Resource.Success(
                             it
                         )
                     })
@@ -30,14 +30,14 @@ abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecut
                 is ApiResponse.Error -> {
                     onFetchFailed()
                     emit(
-                        id.nanangmaxfi.movieku.core.data.source.Resource.Error<ResultType>(
+                        Resource.Error(
                             apiResponse.errorMessage
                         )
                     )
                 }
             }
         } else {
-            emitAll(loadFromDB().map { id.nanangmaxfi.movieku.core.data.source.Resource.Success(it) })
+            emitAll(loadFromDB().map { Resource.Success(it) })
         }
     }
 
@@ -51,6 +51,6 @@ abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecut
 
     protected abstract suspend fun saveCallResult(data: RequestType)
 
-    fun asFlow(): Flow<id.nanangmaxfi.movieku.core.data.source.Resource<ResultType>> = result
+    fun asFlow(): Flow<Resource<ResultType>> = result
 
 }

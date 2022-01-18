@@ -15,14 +15,19 @@ class DetailMovieActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailMovieBinding
     private val viewModel: DetailMovieViewModel by viewModel()
 
+    companion object{
+        const val MOVIE_ID = "movieId"
+        const val STATUS_FAVORITE = "statusFavorite"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailMovieBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        AppUtils.actionbarWithBack(this, "Detail Movie")
+        AppUtils.actionbarWithBack(this, getString(R.string.detail_movie))
 
-        val movieId = intent.extras?.getInt("movieId")
+        val movieId = intent.extras?.getInt(MOVIE_ID)
         if(movieId != null){
             viewModel.movieDetail(movieId).observe(this, { response ->
                 if (response != null){
@@ -35,14 +40,14 @@ class DetailMovieActivity : AppCompatActivity() {
                             binding.progressBar.visibility = View.GONE
                             binding.scrollView.visibility = View.VISIBLE
                             if (response.data != null) {
-                                val statusFavorite = intent.extras?.getBoolean("statusFavorite")
+                                val statusFavorite = intent.extras?.getBoolean(STATUS_FAVORITE)
                                 showMovie(response.data!!, statusFavorite?:false)
                             }
                             else
-                                showError("Empty Data")
+                                showError(getString(R.string.empty_data))
                         }
                         is id.nanangmaxfi.movieku.core.data.source.Resource.Error -> {
-                            showError(response.message ?: "Something error")
+                            showError(response.message ?: getString(R.string.something_error))
                         }
                     }
                 }
@@ -89,11 +94,11 @@ class DetailMovieActivity : AppCompatActivity() {
     private fun setStatusFavorite(statusFavorite: Boolean){
         if (statusFavorite){
             binding.fabFavorite.setIconResource(R.drawable.ic_favorite)
-            binding.fabFavorite.text = "Remove favorite"
+            binding.fabFavorite.text = getString(R.string.remove_favorite)
         }
         else{
             binding.fabFavorite.setIconResource(R.drawable.ic_favorite_border)
-            binding.fabFavorite.text = "Save favorite"
+            binding.fabFavorite.text = getString(R.string.save_favorite)
         }
     }
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="detail_movie">Detail Movie</string>
+    <string name="remove_favorite">Remove favorite</string>
+    <string name="save_favorite">Save favorite</string>
+    <string name="empty_data">Empty Data</string>
+    <string name="something_error">Something error</string>
+    <string name="trending_movie">Trending Movie</string>
+</resources>

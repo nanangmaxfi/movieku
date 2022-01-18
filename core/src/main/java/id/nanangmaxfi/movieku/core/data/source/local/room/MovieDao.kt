@@ -1,6 +1,5 @@
 package id.nanangmaxfi.movieku.core.data.source.local.room
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import id.nanangmaxfi.movieku.core.data.source.local.entity.MovieEntity
 import kotlinx.coroutines.flow.Flow

@@ -11,6 +11,7 @@ import id.nanangmaxfi.movieku.favorite.databinding.ActivityFavoriteMovieBinding
 import id.nanangmaxfi.movieku.ui.main.MovieItem
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
+import org.koin.core.context.unloadKoinModules
 
 class FavoriteMovieActivity : AppCompatActivity() {
     private lateinit var binding : ActivityFavoriteMovieBinding
@@ -21,7 +22,7 @@ class FavoriteMovieActivity : AppCompatActivity() {
         binding = ActivityFavoriteMovieBinding.inflate(layoutInflater)
         setContentView(binding.root)
         loadKoinModules(favoriteModule)
-        AppUtils.actionbarWithBack(this, "Favorite Movie")
+        AppUtils.actionbarWithBack(this, getString(R.string.favorite_movie))
 
         viewModel.movieListFavorite.observe(this, { response ->
             if (response != null && response.isNotEmpty()){
@@ -30,9 +31,14 @@ class FavoriteMovieActivity : AppCompatActivity() {
             else{
                 binding.rvMovie.visibility = View.GONE
                 binding.viewError.root.visibility = View.VISIBLE
-                binding.viewError.tvError.text = "Belum ada movie favorite"
+                binding.viewError.tvError.text = getString(R.string.nothing_movie_favorite)
             }
         })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unloadKoinModules(favoriteModule)
     }
 
     private fun showListMovie(listMovie : List<Movie>){
